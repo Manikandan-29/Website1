@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - Student Database</title>
+        <link rel="icon" type="image/png" href="./img1.png">
+        <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='db_image.png') }}">
+    </head>
+    
+    <body>
+        <div class="login-container">
+            <h1>Login</h1>
+            
+            <!-- Login Form -->
+            <form id="login-form" method="post">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter the password" required>
+                <button type="submit" name="action" value="login">Login</button>
+            </form>
+            
+            <!-- Set New Password Form -->
+            <form id="set-password-form" method="post">
+                <label for="new_password">New Password:</label>
+                <input type="password" id="new_password" name="new_password" placeholder="Enter New Password" required>
+                <button type="submit" name="action" value="set_password" class="btn1">Set New Password </button>
+            </form>
+            
+            <!-- Error Message Display -->
+                <p class="error">{{ error }}</p>
+        </div>   
+        <!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+    $(document).ready(function() {
+    $('#login-form').on('submit', function(event) {
+        event.preventDefault();
+        const password = $('#password').val();
+        $.post('/login', { password: password, action: 'login' }, function(response) {
+            if (response.success) {
+                window.location.href = response.redirect;
+            } else {
+                $('#error-message').text(response.error);
+            }
+        });
+    });
+
+    $('#set-password-form').on('submit', function(event) {
+        event.preventDefault();
+        const newPassword = $('#new_password').val();
+        $.post('/login', { new_password: newPassword, action: 'set_password' }, function(response) {
+            if (response.success) {
+                alert('New database created successfully. You can now log in with the new password.');
+                $('#new_password').val('');  // Clear the input field
+            } else {
+                alert("This password is already used. Kindly use a new password.");
+                $('#error-message').text(response.error);
+            }
+        });
+    });
+});
+   </script>
+    </body>
+    </html>

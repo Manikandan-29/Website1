@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script src="{{url_for('static', filename='index.js')}}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='db_image.png') }}">
+</head>
+<body>
+    <div class="container">
+    
+      <img   class="image-container" src="https://www.mkjc.in/images/page_gallery/mkjc_mLogo.png" width="400" height="100%"> 
+
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <div id="mySidepanel" class="sidepanel">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <button class="openbtn" onclick="openNav()" style="position:absolute;">&#9776; </button>
+
+        <div class="form-container">
+
+            <div class="buttons" id="top-button">
+                <button id="studentButton"
+                    style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; border-radius: 5px;">Student</button>
+                <button id="staffButton"
+                    style="background-color: #008CBA; color: white; border: none; padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; border-radius: 5px;">Staff</button>
+            </div>
+        
+            <!-- Student Form -->
+       <div id="student-form" class="form-container" class="form-container staff-section" style="display: none;">
+                <h1 style="color:#6fa9e7"><strong>Student Database</strong></h1>
+            <form id="student-form-container">
+
+                <label for="name">Name:<span class="star">*</span></label>
+                <input type="text" id="name" placeholder="Name" autocomplete="off" required>
+
+                <label for="roll_number">Roll Number:<span class="star">*</span></label>
+                <input type="text" id="roll_number" placeholder="Roll Number" required>
+
+                <label for="department">Department:<span class="star">*</span></label>
+                <input type="text" id="department" placeholder="Department">
+
+                <label for="class_">Class:</label>
+                <input type="text" id="class_" placeholder="Class">
+
+                <label for="date_of_birth">Date of Birth:<span class="star">*</span></label>
+                <input type="date" id="date_of_birth" required>
+
+                <label for="gender">Gender:<span class="star">*</span></label>
+                    <select id="gender" name="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" placeholder="Address" autocomplete="off">
+
+                <label for="phone_number">Phone Number:<span class="star">*</span></label>
+                <input type="tel" id="phone_number" pattern="[0-9]{10}" placeholder="Phone Number" required>
+
+                <label for="mail_id">Mail ID:<span class="star">*</span></label>
+                <input type="email" id="mail_id" placeholder="Mail ID" required>
+
+                <label for="marksheet">Mark Sheet:</label>
+                <input type="text" id="marksheet" placeholder="Mark Sheet">
+
+                <label for="certificate">Certificate:<span class="star">*</span></label>
+                <input type="text" id="certificate" placeholder="Certificate" required>
+
+                <button type="submit" class="btn btn-success" >Add Student</button>
+                
+            </form>
+
+            <!-- Edit Form -->
+            <div id="edit-form" style="display: none;">
+                <h2>Edit Student Details</h2>
+                <label for="edit_name">Name:</label>
+                <input type="text" id="edit_name" placeholder="Name"><br><br>
+
+                <label for="edit_roll_number">Roll Number:</label>
+                <input type="text" id="edit_roll_number" placeholder="Roll Number" readonly><br><br>
+
+                <label for="edit_department">Department:</label>
+                <input type="text" id="edit_department" placeholder="Department"><br><br>
+
+                <label for="edit_class_">Class:</label>
+                <input type="text" id="edit_class_" placeholder="Class"><br><br>
+
+                <label for="edit_date_of_birth">Date of Birth:</label>
+                <input type="date" id="edit_date_of_birth"><br><br>
+
+                
+                <label for="gender">Gender:</label>
+                <select id="edit_student_gender" name="gender">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select><br><br>
+
+                <label for="edit_address">Address:</label>
+                <input type="text" id="edit_address" placeholder="Address"><br><br>
+
+                <label for="edit_student_phone_number">Phone Number:</label>
+                <input type="tel" id="edit_student_phone_number" pattern="[0-9]{10}" placeholder="Phone Number"><br><br>
+
+                <label for="edit_mail_id">Mail ID:</label>
+                <input type="email" id="edit_mail_id" placeholder="Mail ID"><br><br>
+
+                <label for="edit_marksheet">Mark Sheet:</label>
+                <input type="text" id="edit_marksheet" placeholder="Mark Sheet"><br><br>
+
+                <label for="edit_certificate">Certificate:</label>
+                <input type="text" id="edit_certificate" placeholder="Certificate"><br><br>
+
+               
+            
+            <button id="update-student"  style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Save</button>
+            <button id="cancel-edit" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Cancel</button>
+            
+            </div>
+
+            <!-- Student Table -->
+            <div class="table-container mt-3" class="container mt-3">
+                <button id="show-database" 
+                    style="background-color: #008CBA; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    Show Student Database
+                </button>
+
+                <div id="student-database" class="table-responsive" style="display:none">
+                    <h2 style="color:#6fa9e7">Student List:</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Roll Number</th>
+                                <th>Department</th>
+                                <th>Class</th>
+                                <th>Date of Birth</th>
+                                <th>Gender</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
+                                <th>Mail ID</th>
+                                <th>Mark Sheet</th>
+                                <th>Certificate</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-list">
+                            <!-- Student data will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+     </div>
+            <!-- staff- container -->
+            <div id="staff-form-container" class="form-container" class="form-container staff-section"
+                style="display: none;">
+                <h2 style="color:#6fa9e7"><strong>Staff Database</strong></h2>
+
+                <form id="staff-form">
+                    <label for="staff_name">Name:<span class="star">*</span></label>
+                    <input type="text" id="staff_name" placeholder="Name" required>
+
+                    <label for="age">Age:<span class="star">*</span></label>
+                    <input type="number" id="age" placeholder="Age" required>
+
+                    <label for="gender">Gender:<span class="star">*</span></label>
+                    <select id="staff_gender" name="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <label for="date_of_joining">Date of Joining:<span class="star">*</span></label>
+                    <input type="date" id="date_of_joining">
+
+                    <label for="date_of_birth_staff">Date of Birth:</label>
+                    <input type="date" id="date_of_birth_staff">
+
+                    <label for="staff_address">Address:<span class="star">*</span></label>
+                    <input type="text" id="staff_address" placeholder="Address" required>
+
+                    <label for="staff_phone_number">Phone Number:<span class="star">*</span></label>
+                    <input type="tel" id="staff_phone_number" pattern="[0-9]{10}" placeholder="Phone Number" required> 
+
+                    <label for="designation">Designation:<span class="star">*</span></label>
+                    <input type="text" id="designation" placeholder="Designation"required>
+
+                    <label for="staff_department">Department:</label>
+                    <input type="text" id="staff_department" placeholder="Department" required>
+
+                    <button type="submit" class="btn btn-success">Add Staff</button>
+                </form>
+
+                <!-- Edit Staff Form -->
+                <div id="edit-staff-form" style="display: none;">
+                    <h2>Edit Staff Details</h2>
+                    <input type="hidden" id="edit_staff_id">
+                    <label for="edit_staff_name">Name:</label>
+                    <input type="text" id="edit_staff_name" placeholder="Name"><br><br>
+
+                    <label for="edit_staff_age">Age:</label>
+                    <input type="number" id="edit_staff_age" placeholder="Age"><br><br>
+
+
+                    <label for="gender">Gender:</label>
+                    <select id="edit_staff_gender" name="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select><br><br>
+
+                    <label for="edit_staff_date_of_joining">Date of Joining:</label>
+                    <input type="date" id="edit_staff_date_of_joining"><br><br>
+
+                    <label for="edit_staff_date_of_birth">Date of Birth:</label>
+                    <input type="date" id="edit_staff_date_of_birth"><br><br>
+
+                    <label for="edit_staff_address">Address:</label>
+                    <input type="tel" id="edit_staff_address" placeholder="Address"><br><br>
+
+                    <label for="edit_staff_phone_number">Phone Number:</label>
+                    <input type="text" id="edit_staff_phone_number" pattern="[0-9]{10}" placeholder="Phone Number"><br><br>
+
+                    <label for="edit_staff_designation">Designation:</label>
+                    <input type="text" id="edit_staff_designation" placeholder="Designation"><br><br>
+
+                    <label for="edit_staff_department">Department:</label>
+                    <input type="text" id="edit_staff_department" placeholder="Department"><br><br>
+
+                    <button id="update-staff" 
+                    style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; border-radius: 5px; text-align: center; text-decoration: none; display: inline-block;">
+                    Save
+                </button>
+                
+                <button id="cancel-staff-edit" 
+                    style="background-color: #f44336; color: white; border: none; padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; border-radius: 5px; text-align: center; text-decoration: none; display: inline-block;">
+                    Cancel
+                </button>
+                
+
+                </div><br>
+
+                <!-- Staff Table -->
+                <div class="table-container" class="container mt-3">
+                    <button id="show-staff-database" class="sb"
+                        style="background-color: #008CBA; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                        Show Staff Database
+                    </button>
+
+                    <div id="staff-database" class="table-responsive" style="display: none;">
+                        <h2 style="color:#6fa9e7">Staff List:</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Date of Joining</th>
+                                    <th>Date of Birth</th>
+                                    <th>Address</th>
+                                    <th>Phone Number</th>
+                                    <th>Designation</th>
+                                    <th>Department</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-list">
+                                <!-- Staff data will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show student form, hide staff form
+            $('#studentButton').click(function () {
+                $('#student-form').show();
+                $('#staff-form-container').hide();
+            });
+
+            // Show staff form, hide student form
+            $('#staffButton').click(function () {
+                $('#staff-form-container').show();
+                $('#student-form').hide();
+            });
+        });
+    </script>
+</body>
+
+</html>
