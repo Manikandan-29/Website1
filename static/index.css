@@ -1,0 +1,355 @@
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('bk.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh; /* Full viewport height */
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:300px;
+  margin-left: 40px;
+}
+
+.form-container {
+  position:static;
+  flex: 1;
+  min-width: 300px;
+  background-image: url('bk.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevents content from spilling over */
+}
+
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: inherit; /* Repeats the background image */
+  background-repeat: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  filter: blur(5px); /* Increased blur for a deeper effect */
+  z-index: -1; /* Places the blurred image behind the content */
+}
+
+
+
+h1, h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  color:black;
+  border: #ccc;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 300px;
+}
+.star{
+  margin-left: 5px;
+  color: red
+  
+}
+
+/* Button styles */
+.btn .sb {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  width: 100px;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-save {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #138496;
+}
+
+/* Table styles */
+.database-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+}
+
+th, td {
+  border: 2px solid black;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: gray;
+  font-weight: bold;
+  color: white;
+}
+
+/* Side panel styles */
+.sidepanel {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+#student-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+/* Media Query for smaller screens (tablets and phones) */
+@media (max-width: 768px) {
+  .buttons {
+      flex-direction: column; /* Stacks the buttons vertically on small screens */
+      align-items: center;
+  }
+
+  .buttons button {
+      width: 80%; /* Adjusts button width for smaller screens */
+      padding: 10px;
+      font-size: 14px;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .form-container {
+    width: 100%;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  select {
+    max-width: 100%;
+  }
+  
+  .btn .sb{
+    width: 100%;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .form-container {
+    padding: 15px;
+  }
+
+  h1, h2 {
+    font-size: 1.5em;
+  }
+  
+  .btn .sb {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .form-container {
+    padding: 15px;
+  }
+  
+  h1, h2 {
+    font-size: 1.2em;
+  }
+  
+  .btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  table {
+    font-size: 10px;
+  }
+  
+  th, td {
+    padding: 4px;
+  }
+}
+
+/* iOS support */
+@supports (-webkit-overflow-scrolling: touch) {
+  .database-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
